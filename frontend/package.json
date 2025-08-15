@@ -4,7 +4,7 @@
   "type": "module",
   "pkg": {
     "assets": [
-      "dist/spa/*"
+      "dist/*"
     ],
     "scripts": [
       "dist/server/**/*.js"
@@ -12,11 +12,10 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:client && npm run build:server",
+    "build": "npm run build:client",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "build:client": "vite build",
-    "build:server": "vite build --config vite.config.server.js",
     "start": "node dist/server/production.cjs",
     "test": "vitest --run",
     "format.fix": "prettier --write .",
