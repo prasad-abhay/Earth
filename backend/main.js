@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 // using cors 
 app.use(
   cors({
-    origin: ["*"],
+    origin: ["http://localhost:8080","https://earth-frontend.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true, 
   })
