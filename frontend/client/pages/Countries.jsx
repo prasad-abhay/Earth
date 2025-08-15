@@ -66,7 +66,7 @@ export default function CountriesPage() {
           createdDate: new Date().toISOString().split("T")[0],
         };
 
-        const response = await fetch("${baseUrl}/api/country", {
+        const response = await fetch(`${baseUrl}/api/country`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -165,6 +165,7 @@ export default function CountriesPage() {
       console.error("Error deleting country:", error);
       alert("Error deleting country.");
     }
+    alert("Country deleted successfully!");
   };
 
   const openEditDialog = (country) => {

@@ -158,28 +158,32 @@ export default function StatesPage() {
     }
   };
 
-  const handleDeleteState = async (stateId) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this State?",
+ const handleDeleteState = async (stateId) => {
+  const confirmed = window.confirm(
+    "Are you sure you want to delete this State?"
+  );
+
+  if (!confirmed) return;
+
+  try {
+    const res = await fetch(`${baseUrl}/api/state/${stateId}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) throw new Error("Failed to delete state");
+
+    setStates((prevStates) =>
+      prevStates.filter((state) => state.id !== stateId)
     );
 
-    if (!confirmed) return;
+    
+  } catch (error) {
+    console.error("Error deleting state:", error);
+    alert("Error deleting state.");
+  }
+  alert("State deleted successfully!");
+};
 
-    try {
-      const res = await fetch(`${baseUrl}/api/state/${stateId}`, {
-        method: "DELETE",
-      });
-
-      if (!res.ok) throw new Error("Failed to delete state");
-
-      setStates((prevStates) =>
-        prevStates.filter((state) => state.id !== stateId),
-      );
-    } catch (error) {
-      console.error("Error deleting state:", error);
-      alert("error deleting state.");
-    }
-  };
 
   const openEditDialog = (state) => {
     setSelectedState(state);

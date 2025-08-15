@@ -206,6 +206,7 @@ export default function CitiesPage() {
       console.error("Error deleting city:", error);
       alert("Error deleting city.");
     }
+    alert("city deleted successfully!");
   };
 
   const openEditDialog = (city) => {
