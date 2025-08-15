@@ -8,14 +8,12 @@ export default defineConfig({
     port: 8080,
   },
   build: {
-    outDir: "dist/spa",
+    outDir: "dist",
   },
-  // base: "/Earth-Data-Management/",
   plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),
-      "@shared": path.resolve(__dirname, "./shared"),
     },
   },
 });

@@ -76,7 +76,7 @@ export default function AdminPage() {
       };
 
       try {
-        const res = await fetch("http://localhost:3000/api/user", {
+        const res = await fetch(`${baseUrl}/api/user`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(userToAdd),
@@ -105,7 +105,7 @@ export default function AdminPage() {
 
       try {
         const res = await fetch(
-          `http://localhost:3000/api/user/${selectedUser._id}`,
+          `${baseUrl}/api/user/${selectedUser._id}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -136,7 +136,7 @@ export default function AdminPage() {
     );
     if (confirmed) {
       try {
-        await fetch(`http://localhost:3000/api/user/${userId}`, {
+        await fetch(`${baseUrl}/api/user/${userId}`, {
           method: "DELETE",
         });
         setUsers(users.filter((u) => u._id !== userId));
@@ -169,7 +169,7 @@ export default function AdminPage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/user");
+        const res = await fetch(`${baseUrl}/api/user`);
         const data = await res.json();
         setUsers(data);
       } catch (err) {

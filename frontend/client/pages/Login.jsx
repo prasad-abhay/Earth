@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 export default function Login() {
   const { login, isLoading } = useAuth();
-  const [selectedRole, setSelectedRole] = useState("user");
+  const [selectedRole, setSelectedRole] = useState("admin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
