@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const { User } = require("../schema/userschema");
 
 // GET all users
@@ -11,17 +12,6 @@ const getUsers = async (req, res) => {
       message: "Error fetching users",
       error: error.message || error.toString(),
     });
-  }
-};
-
-// POST new user
-const createUser = async (req, res) => {
-  try {
-    const newUser = new User(req.body);
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
-  } catch (error) {
-    res.status(400).json({ message: "Error creating user", error });
   }
 };
 
@@ -49,7 +39,6 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
   getUsers,
-  createUser,
   updateUser,
   deleteUser,
 };

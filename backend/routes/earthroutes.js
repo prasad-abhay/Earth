@@ -24,7 +24,6 @@ const {
 
 const {
   getUsers,
-  createUser,
   updateUser,
   deleteUser,
 } = require("../controller/userController");
@@ -80,13 +79,10 @@ router.delete("/city/:id", (req, res) => {
   deleteCity(req, res);
 });
 
-// USER routes
+
+// user route
 router.get("/user", (req, res) => {
   getUsers(req, res);
-});
-
-router.post("/user", (req, res) => {
-  createUser(req, res);
 });
 
 router.put("/user/:id", (req, res) => {
@@ -96,6 +92,5 @@ router.put("/user/:id", (req, res) => {
 router.delete("/user/:id", (req, res) => {
   deleteUser(req, res);
 });
-
 
 module.exports = router;

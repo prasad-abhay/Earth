@@ -2,6 +2,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import {
   Users,
   Globe,
@@ -13,6 +14,7 @@ import {
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const quickActions = [
     {
@@ -75,8 +77,8 @@ export default function Dashboard() {
   if (!user) return null;
 
   const handleQuickActionClick = (route) => {
-    window.location.href = route;
-  };
+  navigate(route);
+};
 
   // Filter quick actions based on user role
   const availableQuickActions = quickActions.filter(

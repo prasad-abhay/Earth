@@ -1,69 +1,75 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext(undefined);
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
+  if (!context) {
+    throw new Error("useAuth must be used within AuthProvider");
   }
   return context;
 };
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Load user from localStorage on mount
+  // load user on refresh
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (error) {
-        console.error("Error parsing saved user:", error);
-        localStorage.removeItem("user");
-      }
+    const saved = localStorage.getItem("user");
+    if (saved) {
+      setUser(JSON.parse(saved));
     }
-    setIsLoading(false);
   }, []);
 
   const login = async (email, password, role) => {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+      const res = await fetch(`${baseUrl}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, role }),
+      });
 
-    // Simple demo authentication 
-    if (email && password) {
-      const mockUser = {
-        id: "1",
-        name: role === "admin" ? "Admin User" : "John Doe",
-        email,
-        role,
-        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`,
+      const data = await res.json();
+
+      //  invalid user / wrong password
+      if (!res.ok) {
+        alert(data.message || "Login failed");
+        return;
+      }
+
+      // ✅ success
+      const userWithAvatar = {
+        ...data.user,
+        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${data.user.email}`,
       };
-      setUser(mockUser);
-      localStorage.setItem("user", JSON.stringify(mockUser));
-      setIsLoading(false);
-      return true;
-    }
 
-    setIsLoading(false);
-    return false;
+      setUser(userWithAvatar);
+      localStorage.setItem("user", JSON.stringify(userWithAvatar));
+
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        message: "Server error. Try again later.",
+      };
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  // logout
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
   };
 
-  const value = {
-    user,
-    login,
-    logout,
-    isLoading,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

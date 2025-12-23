@@ -1,6 +1,7 @@
 const express = require("express")
 const connectDB = require("./connectdb");
 const apiRoutes = require("./routes/earthroutes");
+const authRoute = require("./routes/authroutes");
 const cors = require("cors");
 const { configDotenv } = require("dotenv");
 configDotenv();
@@ -15,9 +16,10 @@ app.use(express.json());
 // Connect to DB
 connectDB();
 
-app.get("/", (req, res) => {
-  res.send(`hello world`);
-});
+// app.get("/", (req, res) => {
+//   res.send(`Hello world`);
+// });
+
 // using cors 
 app.use(
   cors({
@@ -29,6 +31,7 @@ app.use(
 
 // Use API routes
 app.use("/api", apiRoutes);
+app.use("/auth", authRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

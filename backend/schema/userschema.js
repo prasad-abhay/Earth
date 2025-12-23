@@ -1,57 +1,56 @@
-const { Schema, model } = require("mongoose");
+import mongoose from "mongoose";
 
-// Country schema
+const { Schema, model } = mongoose;
+
 const countrySchema = new Schema(
   {
-    name: { type: String, require: true },
-    code: { type: String, require: true },
-    createdBy: { type: String, require: true },
-    createdDate: { type: String, require: true },
+    name: { type: String, required: true },
+    code: { type: String, required: true },
+    createdBy: { type: String, required: true },
+    createdDate: { type: String, required: true },
   },
-  { collection: "country" },
+  { collection: "country" }
 );
 
-// State schema
 const stateSchema = new Schema(
   {
-    name: { type: String, require: true },
-    code: { type: String, require: true },
-    countryName: { type: String, require: true },
-    createdBy: { type: String, require: true },
-    createdDate: { type: String, require: true },
+    name: { type: String, required: true },
+    code: { type: String, required: true },
+    countryName: { type: String, required: true },
+    createdBy: { type: String, required: true },
+    createdDate: { type: String, required: true },
   },
-  { collection: "state" },
+  { collection: "state" }
 );
 
-// City schema
 const citySchema = new Schema(
   {
-    name: { type: String, require: true },
-    code: { type: String, require: true },
-    stateName: { type: String, require: true },
-    countryName: { type: String, require: true },
-    countryId: { type: String, require: true },
-    createdBy: { type: String, require: true },
-    createdDate: { type: String, require: true },
+    name: { type: String, required: true },
+    code: { type: String, required: true },
+    stateName: { type: String, required: true },
+    countryName: { type: String, required: true },
+    countryId: { type: String, required: true },
+    createdBy: { type: String, required: true },
+    createdDate: { type: String, required: true },
   },
-  { collection: "city" },
-);
-// user schema
-const userSchema = new Schema(
-  {
-    name: { type: String, require: true },
-    email: { type: String, require: true },
-    role: { type: String, require: true },
-    addedBy: { type: String, require: true },
-    dateAdded: { type: String, require: true },
-  },
-  { collection: "user" },
+  { collection: "city" }
 );
 
-// Create models
+const userSchema = new Schema(
+  {
+    name: {type: String,required: true},
+    email: {type: String,required: true,unique: true},
+    role: {type: String, required: true},
+    dateAdded: {type: String,required: true},
+    password: {type: String,required: true},
+  },
+  { collection: "user" }
+);
+
 const Country = model("Country", countrySchema);
 const State = model("State", stateSchema);
 const City = model("City", citySchema);
 const User = model("User", userSchema);
 
-module.exports = { Country, State, City, User };
+
+export { Country, State, City, User };

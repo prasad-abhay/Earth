@@ -71,7 +71,6 @@ export default function AdminPage() {
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
-        addedBy: user.name,
         dateAdded: new Date().toISOString().split("T")[0],  
       };
 
@@ -144,8 +143,8 @@ export default function AdminPage() {
         console.error("Error deleting user:", err);
         alert("Error deleting user");
       }
+      alert("user deleted sucessfully!");
     }
-    alert("user deleted sucessfully!");
   };
 
   // open edit diglog function
@@ -226,15 +225,15 @@ export default function AdminPage() {
                 onOpenChange={setIsAddUserDialogOpen}
               >
                 {/* add user button */}
-                <DialogTrigger asChild>
+                {/* <DialogTrigger asChild>
                   <Button className="bg-blue-600 hover:bg-blue-700">
                     <Plus className="h-4 w-4 mr-2" />
                     Add User
                   </Button>
-                </DialogTrigger>
+                </DialogTrigger> */}
 
                 {/* add user panel */}
-                <DialogContent>
+                {/* <DialogContent>
                   <DialogHeader>
                     <DialogTitle>Add New User</DialogTitle>
                   </DialogHeader>
@@ -280,10 +279,6 @@ export default function AdminPage() {
                       </Select>
                     </div>
                     <div className="flex items-center space-x-2 text-sm text-gray-600">
-                      <User className="h-4 w-4" />
-                      <span>Added by: {user.name}</span>
-                    </div>
-                    <div className="flex items-center space-x-2 text-sm text-gray-600">
                       <Calendar className="h-4 w-4" />
                       <span>Date: {new Date().toLocaleDateString()}</span>
                     </div>
@@ -297,7 +292,7 @@ export default function AdminPage() {
                       <Button onClick={handleAddUser}>Add User</Button>
                     </div>
                   </div>
-                </DialogContent>
+                </DialogContent> */}
               </Dialog>
             </div>
           </CardHeader>
@@ -324,8 +319,7 @@ export default function AdminPage() {
                   <TableHead>Email</TableHead>
                   <TableHead>Role</TableHead>
                   <TableHead>Date Added</TableHead>
-                  <TableHead>Added By</TableHead>
-                  <TableHead className="text-center">Actions</TableHead>
+                  <TableHead className="text-left">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -341,9 +335,8 @@ export default function AdminPage() {
                       </Badge>
                     </TableCell>
                     <TableCell>{u.dateAdded}</TableCell>
-                    <TableCell>{u.addedBy}</TableCell>
                     <TableCell className="text-right">
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center  space-x-2">
                         <Button
                           variant="ghost"
                           size="sm"
@@ -475,10 +468,6 @@ export default function AdminPage() {
                   <p className="text-gray-800 capitalize">
                     {selectedUser.role}
                   </p>
-                </div>
-                <div>
-                  <Label>Added By</Label>
-                  <p className="text-gray-800">{selectedUser.addedBy}</p>
                 </div>
                 <div>
                   <Label>Date Added</Label>

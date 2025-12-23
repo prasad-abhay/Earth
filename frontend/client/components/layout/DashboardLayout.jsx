@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,6 +25,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 const sidebarItems = [
   {
@@ -55,6 +57,7 @@ const sidebarItems = [
 export default function DashboardLayout({ children }) {
   const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const navigate = useNavigate();
 
   if (!user) return null;
 
@@ -109,28 +112,51 @@ export default function DashboardLayout({ children }) {
               );
 
               return (
+                // <div key={item.id} className="relative">
+                //   <a
+                //     href={item.href}
+                //     className={cn(
+                //       "flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 group",
+                //       !sidebarOpen && "justify-center",
+                //     )}
+                //   >
+                //     <IconComponent className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                //     {sidebarOpen && (
+                //       <>
+                //         <span className="font-medium flex-1">
+                //           {item.label}
+                //           {isGeographicItem && user.role !== "admin" && (
+                //             <span className="text-xs block text-gray-500">
+                //               View only
+                //             </span>
+                //           )}
+                //         </span>
+                //       </>
+                //     )}
+                //   </a>
+                // </div>
+
                 <div key={item.id} className="relative">
-                  <a
-                    href={item.href}
+                  <button
+                    type="button"
+                    onClick={() => navigate(item.href)}
                     className={cn(
-                      "flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 group",
+                      "w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 group",
                       !sidebarOpen && "justify-center",
                     )}
                   >
                     <IconComponent className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
                     {sidebarOpen && (
-                      <>
-                        <span className="font-medium flex-1">
-                          {item.label}
-                          {isGeographicItem && user.role !== "admin" && (
-                            <span className="text-xs block text-gray-500">
-                              View only
-                            </span>
-                          )}
-                        </span>
-                      </>
+                      <span className="font-medium flex-1">
+                        {item.label}
+                        {isGeographicItem && user.role !== "admin" && (
+                          <span className="text-xs block text-gray-500">
+                            View only
+                          </span>
+                        )}
+                      </span>
                     )}
-                  </a>
+                  </button>
                 </div>
               );
             })}

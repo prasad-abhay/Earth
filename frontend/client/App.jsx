@@ -14,6 +14,7 @@ import CountriesPage from "./pages/Countries";
 import StatesPage from "./pages/States";
 import CitiesPage from "./pages/Cities";
 import NotFound from "./pages/NotFound";
+import Signup  from "./pages/Signup";
 
 // import query client provider
 const queryClient = new QueryClient();
@@ -79,6 +80,14 @@ function AppRoutes() {
         element={
           <PublicRoute>
             <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <PublicRoute>
+            <Signup />
           </PublicRoute>
         }
       />

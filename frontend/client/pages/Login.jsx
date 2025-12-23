@@ -8,9 +8,11 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Shield, User, Mail, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const { login, isLoading } = useAuth();
+  const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState("admin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -154,7 +156,7 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* Error Message */}
+              {/* Error */}
               {error && (
                 <Alert variant="destructive">
                   <AlertDescription>{error}</AlertDescription>
@@ -177,8 +179,17 @@ export default function Login() {
                 )}
               </Button>
             </form>
-            <div className="demo text-center">
-              <p>Demo: Enter any Email and Password to login</p> 
+            <div className="text-center text-sm">
+              <p className="text-gray-900">
+                New user?{" "}
+                <button
+                  type="button"
+                  onClick={() => navigate("/signup")}
+                  className="text-blue-600 font-medium hover:underline"
+                >
+                  Sign up
+                </button>
+              </p>
             </div>
           </CardContent>
         </Card>
