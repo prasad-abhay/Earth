@@ -3,7 +3,14 @@
 Earth Data Manager is a full-stack MERN (MongoDB, Express, React, Node.js) application designed to manage, authenticate, and analyze data efficiently. The project focuses on secure authentication, role-based access, and scalable data handling with a clean and responsive UI.
 
 - **Live Demo**: [click here](https://earth-frontend.onrender.com/login)
-  
+
+  <img width="1139" height="767" alt="image" src="https://github.com/user-attachments/assets/493a7fbd-d9cf-4890-a8d8-0eaea2d2d7bd" />
+
+  <img width="1463" height="736" alt="image" src="https://github.com/user-attachments/assets/e5382540-d85e-4e72-92ff-3bc9115dc986" />
+
+  <img width="1469" height="808" alt="image" src="https://github.com/user-attachments/assets/58a21e5f-e246-40eb-a35c-2e4f58e5da76" />
+
+
     
 ## 🚀 Features
 	•	🔐 User Authentication (Login / Register)
